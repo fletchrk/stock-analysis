@@ -215,6 +215,16 @@ Next i
     MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
 
 End Sub
+### Run Time for each method:
+The difference between runtimes for the Refactored Code vs Original Code is about 0.625 seconds.
+
+Refactored Run Times:
+![VBA_Challenge_2017](https://github.com/fletchrk/stock-analysis/blob/main/Resources/VBA_Challenge_2017.png)
+![VBA_Challenge_2018](https://github.com/fletchrk/stock-analysis/blob/main/Resources/VBA_Challenge_2018.png)
+
+Original Run Times:
+![Original Code 2017](https://github.com/fletchrk/stock-analysis/blob/main/Resources/Original%20Code%202017.png)
+![Original Code 2018](https://github.com/fletchrk/stock-analysis/blob/main/Resources/Original%20Code%202018.png)
 ## Summary
 ### Advantages/Disadvantages of Refactoring Code in General
 There are several advantages and disadvantages of refactoring code. One big advantage is that refactoring code helps make the code more efficient. Another advantage of refactoring code is that logical errors are easier to notice in well-structured code that uses nested for loops. The main disadvantage of refactoring code is that since you are using code that already works you can cause the refactored code unusable if the coding is not correct.
