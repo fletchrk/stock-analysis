@@ -1,0 +1,78 @@
+Sub AllStocksAnalysis()
+
+    Dim startTime As Single
+    Dim endTime As Single
+
+    yearValue = InputBox("What year would you like to run the analysis on?")
+    
+        startTime = Timer
+
+'1) Format the output sheet on All Stocks Analysis worksheet
+Worksheets("All Stocks Analysis").Activate
+Range("A1").Value = "All Stocks (" + yearValue + ")"
+'Create a header row
+Cells(3, 1).Value = "Ticker"
+Cells(3, 2).Value = "Total Daily Volume"
+Cells(3, 3).Value = "Return"
+    
+'2) Initialize array of all tickers
+Dim Tickers(12) As String
+Tickers(0) = "AY"
+Tickers(1) = "CSIQ"
+Tickers(2) = "DQ"
+Tickers(3) = "ENPH"
+Tickers(4) = "FSLR"
+Tickers(5) = "HASI"
+Tickers(6) = "JKS"
+Tickers(7) = "RUN"
+Tickers(8) = "SEDG"
+Tickers(9) = "SPWR"
+Tickers(10) = "TERP"
+Tickers(11) = "VSLR"
+'3a) Initialize variables for starting price and ending price
+Dim startingPrice As Single
+Dim endingPrice As Single
+'3b) Activate data worksheet
+Worksheets(yearValue).Activate
+'3c) Get the number of rows to loop over
+RowCount = Cells(Rows.Count, "A").End(xlUp).Row
+
+'4) Loop through tickers
+For i = 0 To 11
+    ticker = Tickers(i)
+    totalVolume = 0
+    '5) loop through rows in the data
+    Worksheets(yearValue).Activate
+    For j = 2 To RowCount
+        '5a) Find total volume for current ticker
+        If Cells(j, 1).Value = ticker Then
+        
+            totalVolume = totalVolume + Cells(j, 8).Value
+            
+        End If
+        '5b) Find starting price for current ticker
+        If Cells(j - 1, 1).Value <> ticker And Cells(j, 1).Value = ticker Then
+        
+            startingPrice = Cells(j, 6).Value
+            
+        End If
+        
+        '5c) Find ending price for current ticker
+        If Cells(j + 1, 1).Value <> ticker And Cells(j, 1).Value = ticker Then
+        
+            endingPrice = Cells(j, 6).Value
+            
+        End If
+    Next j
+    '6) Output data for current ticker
+    Worksheets("All Stocks Analysis").Activate
+    Cells(4 + i, 1).Value = ticker
+    Cells(4 + i, 2).Value = totalVolume
+    Cells(4 + i, 3).Value = endingPrice / startingPrice - 1
+    
+Next i
+
+    endTime = Timer
+    MsgBox "This code ran in " & (endTime - startTime) & " seconds for the year " & (yearValue)
+
+End Sub
